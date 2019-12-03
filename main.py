@@ -1,11 +1,16 @@
+# API de consulta de status da NF-e pelo Portal Nacional
 from flask import Flask, jsonify
+from flask_cors import CORS, cross_origin
 from bs4 import BeautifulSoup
 from requests import get
 import os
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route("/")
+@cross_origin()
 def main():
 
     result = {}
@@ -56,5 +61,6 @@ def main():
         }
     })
 
+# Executar se estiver executando pelo terminal
 if __name__ == "__main__":
-    os.system('sh run.sh')
+    app.run()
